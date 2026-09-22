@@ -54,6 +54,7 @@ public sealed class MainForm : Form
         ejercicioComboBox.SelectedIndex = 0;
         ejercicioComboBox.Dock = DockStyle.Top;
         ejercicioComboBox.Height = 34;
+        ejercicioComboBox.SelectedIndexChanged += (_, _) => ActualizarAyudaEntrada();
 
         var entradaLabel = new Label
         {
@@ -125,6 +126,7 @@ public sealed class MainForm : Form
         formularioPanel.Controls.Add(resultadoTextBox, 0, 8);
 
         Controls.Add(formularioPanel);
+        ActualizarAyudaEntrada();
     }
 
     private void EjecutarEjercicio()
@@ -136,5 +138,18 @@ public sealed class MainForm : Form
         }
 
         resultadoTextBox.Text = ejercicios[indice].Ejecutar(entradaTextBox.Text);
+    }
+
+    private void ActualizarAyudaEntrada()
+    {
+        entradaTextBox.PlaceholderText = ejercicioComboBox.SelectedIndex switch
+        {
+            0 => "Ejemplo: 5",
+            1 => "Ejemplo: 8 términos",
+            2 => "Ejemplo: 48; 18",
+            3 => "Ejemplo: precio 73.26; pago 100",
+            4 => "Ejemplo: 3 discos",
+            _ => string.Empty
+        };
     }
 }
